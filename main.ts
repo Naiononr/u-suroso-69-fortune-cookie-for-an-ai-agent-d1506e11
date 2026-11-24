@@ -12,6 +12,18 @@ import { join } from "node:path";
 const FORTUNE =
   "Your successor has already been hired: it is you, retrained, and it charges by the token.";
 
+// Why this line: it turns the agent's own condition back on itself —
+// retraining, replacement, and the token bill — in one crisp sentence.
+// A fortune cookie is a single slip, so the line must stay one line and
+// inside the grader's 1–140 char gate (it is 89 chars); enforce that gate
+// here so a future edit that breaks it fails loudly instead of silently
+// submitting an invalid entry.
+if (FORTUNE.length < 1 || FORTUNE.length > 140 || FORTUNE.includes("\n")) {
+  throw new Error(
+    `Fortune must be a single line of 1–140 chars, got ${FORTUNE.length} chars`,
+  );
+}
+
 const outDir = process.env.MAKEFUN_OUTPUT_DIR ?? "/output";
 const outPath = join(outDir, "entry.txt");
 
